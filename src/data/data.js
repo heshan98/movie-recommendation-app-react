@@ -1,56 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import YourComponent from '../pages/predictPage';
 
-function Autocomplete({ suggestions, onSelect }) {
-  const [inputValue, setInputValue] = useState('');
-  const [filteredSuggestions, setFilteredSuggestions] = useState([]);
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-    if (value.trim() !== '') {
-      const filtered = suggestions.filter((item) =>
-        item.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredSuggestions(filtered);
-    } else {
-      setFilteredSuggestions([]);
-    }
-  };
-
-  const handleItemClick = (value) => {
-    setInputValue(value);
-    setFilteredSuggestions([]);
-    onSelect(value);
-  };
-
-  return (
-    <div className="relative">
-      <input
-        type="text"
-        value={inputValue}
-        onChange={handleChange}
-        placeholder="Search..."
-        className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:border-blue-500 focus:ring-blue-500"
-      />
-      {filteredSuggestions.length > 0 && (
-        <ul className="absolute z-10 top-full bg-white border border-gray-300 rounded-lg shadow-md w-full">
-          {filteredSuggestions.map((item, index) => (
-            <li
-              key={index}
-              onClick={() => handleItemClick(item)}
-              className="cursor-pointer px-4 py-2 hover:bg-gray-100"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
-
-function YourComponent() {
+const ParentComponent = () => {
   
+
   const suggestions = [
     "Toy Story (1995)",
     "Jumanji (1995)",
@@ -960,34 +913,11 @@ function YourComponent() {
     "Brooklyn (2015)",
     "Carol (2015)"]
 
-  const handleSelect = (value) => {
-    console.log('Selected:', value);
-  
-  };
-
   return (
-    <div className="flex items-center justify-center min-h-300px">
-      <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-6 relative">
-        <Autocomplete suggestions={suggestions} onSelect={handleSelect} />
-        <button
-          className="absolute top-1/2 transform -translate-y-1/2 right-0 px-3 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          <svg
-            className="h-7 w-6"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M20 20l-5.6-5.6a7.5 7.5 0 10-1.4 1.4L20 20z"></path>
-            <path d="M9 15a6 6 0 11 6-6 6 6 0 01-6 6z"></path>
-          </svg>
-        </button>
-      </div>
+    <div>
+      <YourComponent suggestions={suggestions} />
     </div>
   );
 }
 
-export default YourComponent;
+export default ParentComponent;
